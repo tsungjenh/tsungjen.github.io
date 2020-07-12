@@ -28,6 +28,11 @@
   </url>
   
   <url>
+    <loc>https://tsungjenh.github.io/blog/kafka_intro/</loc>
+    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://tsungjenh.github.io/categories/</loc>
     <lastmod>2019-10-29T10:07:47+06:00</lastmod>
   </url>
@@ -38,27 +43,22 @@
   </url>
   
   <url>
-    <loc>https://tsungjenh.github.io/categories/go/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/blog/post-1/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/blog/post-2-copy/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://tsungjenh.github.io/blog/post-2/</loc>
     <lastmod>2019-10-29T10:07:47+06:00</lastmod>
   </url>
   
   <url>
     <loc>https://tsungjenh.github.io/categories/html/</loc>
+    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/tags/kafka/</loc>
+    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/categories/kafka/</loc>
     <lastmod>2019-10-29T10:07:47+06:00</lastmod>
   </url>
   
@@ -85,21 +85,6 @@
   <url>
     <loc>https://tsungjenh.github.io/tags/</loc>
     <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/tags/test/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/posts/first-post/</loc>
-    <lastmod>2019-08-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/posts/</loc>
-    <lastmod>2019-08-03T00:00:00+00:00</lastmod>
   </url>
   
 </urlset>
