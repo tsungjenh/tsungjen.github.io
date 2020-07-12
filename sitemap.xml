@@ -3,6 +3,41 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://tsungjenh.github.io/blog/kafka_intro/</loc>
+    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/categories/</loc>
+    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/tags/channel/</loc>
+    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/tags/go/</loc>
+    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/categories/go/</loc>
+    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/tags/</loc>
+    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/</loc>
+    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://tsungjenh.github.io/about/</loc>
     <lastmod>2019-10-29T13:49:23+06:00</lastmod>
   </url>
@@ -23,21 +58,6 @@
   </url>
   
   <url>
-    <loc>https://tsungjenh.github.io/</loc>
-    <lastmod>2019-10-29T13:49:23+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/blog/kafka_intro/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/categories/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://tsungjenh.github.io/tags/game/</loc>
     <lastmod>2019-10-29T10:07:47+06:00</lastmod>
   </url>
@@ -49,16 +69,6 @@
   
   <url>
     <loc>https://tsungjenh.github.io/categories/html/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/tags/kafka/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/categories/kafka/</loc>
     <lastmod>2019-10-29T10:07:47+06:00</lastmod>
   </url>
   
@@ -79,11 +89,6 @@
   
   <url>
     <loc>https://tsungjenh.github.io/tags/react/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/tags/</loc>
     <lastmod>2019-10-29T10:07:47+06:00</lastmod>
   </url>
   

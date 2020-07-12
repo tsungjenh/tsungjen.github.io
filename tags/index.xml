@@ -6,10 +6,28 @@
     <description>Recent content in Tags on TsungJen.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Tue, 29 Oct 2019 10:07:47 +0600</lastBuildDate>
+    <lastBuildDate>Wed, 29 Apr 2020 10:07:47 +0600</lastBuildDate>
     
 	<atom:link href="https://tsungjenh.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>channel</title>
+      <link>https://tsungjenh.github.io/tags/channel/</link>
+      <pubDate>Wed, 29 Apr 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/tags/channel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go</title>
+      <link>https://tsungjenh.github.io/tags/go/</link>
+      <pubDate>Wed, 29 Apr 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/tags/go/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Game</title>
@@ -17,15 +35,6 @@
       <pubDate>Tue, 29 Oct 2019 10:07:47 +0600</pubDate>
       
       <guid>https://tsungjenh.github.io/tags/game/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Kafka</title>
-      <link>https://tsungjenh.github.io/tags/kafka/</link>
-      <pubDate>Tue, 29 Oct 2019 10:07:47 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/tags/kafka/</guid>
       <description></description>
     </item>
     

@@ -6,7 +6,7 @@
     <description>Recent content on TsungJen.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Tue, 29 Oct 2019 13:49:23 +0600</lastBuildDate>
+    <lastBuildDate>Wed, 29 Apr 2020 10:07:47 +0600</lastBuildDate>
     
 	<atom:link href="https://tsungjenh.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,10 +14,10 @@
     <item>
       <title>An Introduction to Apache Kakfa</title>
       <link>https://tsungjenh.github.io/blog/kafka_intro/</link>
-      <pubDate>Tue, 29 Oct 2019 10:07:47 +0600</pubDate>
+      <pubDate>Wed, 29 Apr 2020 10:07:47 +0600</pubDate>
       
       <guid>https://tsungjenh.github.io/blog/kafka_intro/</guid>
-      <description></description>
+      <description>With its concurrency properties, Go becomes one of the most popular languages in recent years.</description>
     </item>
     
     <item>

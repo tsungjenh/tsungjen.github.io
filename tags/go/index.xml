@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Go on TsungJen.io</title>
-    <link>https://tsungjenh.github.io/categories/go/</link>
+    <link>https://tsungjenh.github.io/tags/go/</link>
     <description>Recent content in Go on TsungJen.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
     <lastBuildDate>Wed, 29 Apr 2020 10:07:47 +0600</lastBuildDate>
     
-	<atom:link href="https://tsungjenh.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://tsungjenh.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

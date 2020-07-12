@@ -5,7 +5,7 @@
 
   <!-- mobile responsive meta -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Kafka Introduction">
+  <meta name="description" content="Go Channel Source Code Review">
   <meta name="author" content="Themefisher">
   <meta name="generator" content="Hugo 0.71.0" />
 
@@ -104,22 +104,88 @@
     <div class="row">
       <div class="col-lg-8 mx-auto">
         
-        <a href="/categories/kafka"
-          class="text-primary">Kafka</a>
+        <a href="/categories/go"
+          class="text-primary">Go</a>
         
         <h2>An Introduction to Apache Kakfa</h2>
         <div class="mb-3 post-meta">
           <span>By Themefisher</span>
           
           <span class="border-bottom border-primary px-2 mx-1"></span>
-          <span>29 October 2019</span>
+          <span>29 April 2020</span>
           
         </div>
         
-        <img src="https://tsungjenh.github.io/images/featured-post/post-2.jpg" class="img-fluid w-100 mb-4" alt="An Introduction to Apache Kakfa">
+        <img src="https://tsungjenh.github.io/images/featured-post/channel.jpg" class="img-fluid w-100 mb-4" alt="An Introduction to Apache Kakfa">
         
         <div class="content mb-5">
-          
+          <p>With its concurrency properties, Go becomes one of the most popular languages in recent years. In Go concurrency, we have this convenient data structure to communicate between each goroutine - <strong>Channels</strong>. In this article, we are going to dive into the source code and have a deep understanding of it.</p>
+<pre><code>type hchan struct {
+	qcount   uint           // total data in the queue
+	dataqsiz uint           // size of the circular queue
+	buf      unsafe.Pointer // points to an array of dataqsiz elements
+	elemsize uint16
+	closed   uint32
+	elemtype *_type // element type
+	sendx    uint   // send index
+	
+	recvx    uint   // receive index
+	recvq    waitq  // list of recv waiters
+	sendq    waitq  // list of send waiters
+
+	// lock protects all fields in hchan, as well as several
+	// fields in sudogs blocked on this channel.
+	//
+	// Do not change another G's status while holding this lock
+	// (in particular, do not ready a G), as this can deadlock
+	// with stack shrinking.
+	lock mutex
+}
+
+// and bidirectional linked list
+type waitq struct {
+	first *sudog
+	last  *sudog
+}
+
+// a wrapper of goroutine
+type sudog struct {
+	// The following fields are protected by the hchan.lock of the
+	// channel this sudog is blocking on. shrinkstack depends on
+	// this for sudogs involved in channel ops.
+
+	g *g
+
+	next *sudog
+	prev *sudog
+	elem unsafe.Pointer // data element (may point to stack)
+
+	// The following fields are never accessed concurrently.
+	// For channels, waitlink is only accessed by g.
+	// For semaphores, all fields (including the ones above)
+	// are only accessed when holding a semaRoot lock.
+
+	acquiretime int64
+	releasetime int64
+	ticket      uint32
+
+	// isSelect indicates g is participating in a select, so
+	// g.selectDone must be CAS'd to win the wake-up race.
+	isSelect bool
+
+	parent   *sudog // semaRoot binary tree
+	waitlink *sudog // g.waiting list or semaRoot
+	waittail *sudog // semaRoot
+	c        *hchan // channel
+}
+
+</code></pre><p>We can separate into three parts. A ring buffer, two wait queues, and a lock.</p>
+<ol>
+<li>A ring buffer defines a space for the buffer channels (for a non-buffered channel, <strong>buf</strong> points to nil).</li>
+<li>The sendq and the recvq are two bidirectional linked list of send/recv waiter. TThe <strong>sendq</strong> and the <strong>recvq</strong> are two bidirectional linked list of send/recv waiter. The nodes in the waitq are <strong>sudog</strong> which is a wrapper of goroutines.</li>
+<li>A lock is to assert mutual exclusive to prevent race condition.</li>
+</ol>
+
         </div>
 
         
@@ -174,10 +240,10 @@
         <h6 class="mb-4">Categories</h6>
         <ul class="list-unstyled">
           <li class="mb-3"><a class="text-dark"
-              href="/categories/html">Html</a>
+              href="/categories/go">Go</a>
           </li>
           <li class="mb-3"><a class="text-dark"
-              href="/categories/kafka">Kafka</a>
+              href="/categories/html">Html</a>
           </li>
         </ul>
       </div>
