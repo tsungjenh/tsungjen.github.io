@@ -12,11 +12,11 @@
     
     
     <item>
-      <title>An Introduction to Apache Kakfa</title>
-      <link>https://tsungjenh.github.io/blog/kafka_intro/</link>
+      <title>Go Channel Source Code Review</title>
+      <link>https://tsungjenh.github.io/blog/channel_ds/</link>
       <pubDate>Wed, 29 Apr 2020 10:07:47 +0600</pubDate>
       
-      <guid>https://tsungjenh.github.io/blog/kafka_intro/</guid>
+      <guid>https://tsungjenh.github.io/blog/channel_ds/</guid>
       <description>With its concurrency properties, Go becomes one of the most popular languages in recent years.</description>
     </item>
     

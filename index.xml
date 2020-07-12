@@ -12,21 +12,12 @@
     
     
     <item>
-      <title>An Introduction to Apache Kakfa</title>
-      <link>https://tsungjenh.github.io/blog/kafka_intro/</link>
+      <title>Go Channel Source Code Review</title>
+      <link>https://tsungjenh.github.io/blog/channel_ds/</link>
       <pubDate>Wed, 29 Apr 2020 10:07:47 +0600</pubDate>
       
-      <guid>https://tsungjenh.github.io/blog/kafka_intro/</guid>
+      <guid>https://tsungjenh.github.io/blog/channel_ds/</guid>
       <description>With its concurrency properties, Go becomes one of the most popular languages in recent years.</description>
-    </item>
-    
-    <item>
-      <title>How To Use Checklists To Improve Your UX</title>
-      <link>https://tsungjenh.github.io/blog/post-2/</link>
-      <pubDate>Tue, 29 Oct 2019 10:07:47 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/post-2/</guid>
-      <description>Heading 1 Heading 2 Heading 3 Heading 4 Heading 5 Heading 6 Emphasis Emphasis, aka italics, with asterisks or underscores.</description>
     </item>
     
   </channel>

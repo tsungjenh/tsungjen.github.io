@@ -3,11 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://tsungjenh.github.io/blog/kafka_intro/</loc>
-    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://tsungjenh.github.io/categories/</loc>
     <lastmod>2020-04-29T10:07:47+06:00</lastmod>
   </url>
@@ -24,6 +19,11 @@
   
   <url>
     <loc>https://tsungjenh.github.io/categories/go/</loc>
+    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/blog/channel_ds/</loc>
     <lastmod>2020-04-29T10:07:47+06:00</lastmod>
   </url>
   
@@ -55,41 +55,6 @@
   <url>
     <loc>https://tsungjenh.github.io/search/</loc>
     <lastmod>2019-10-29T13:49:23+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/tags/game/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/blog/post-2/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/categories/html/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/tags/new/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/tags/photos/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/tags/python/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/tags/react/</loc>
-    <lastmod>2019-10-29T10:07:47+06:00</lastmod>
   </url>
   
 </urlset>
