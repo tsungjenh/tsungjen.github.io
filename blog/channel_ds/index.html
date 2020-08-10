@@ -119,78 +119,170 @@
         <img src="https://tsungjenh.github.io/images/featured-post/channel.jpg" class="img-fluid w-100 mb-4" alt="Go Channel Source Code Review">
         
         <div class="content mb-5">
-          <p>With its concurrency properties, Go becomes one of the most popular languages in recent years. In Go concurrency, we have this convenient data structure to communicate between each goroutine - <strong>Channels</strong>. In this article, we are going to dive into the source code and have a deep understanding of it.</p>
-<pre><code>type hchan struct {
-	qcount   uint           // total data in the queue
-	dataqsiz uint           // size of the circular queue
-	buf      unsafe.Pointer // points to an array of dataqsiz elements
-	elemsize uint16
-	closed   uint32
-	elemtype *_type // element type
-	sendx    uint   // send index
-	
-	recvx    uint   // receive index
-	recvq    waitq  // list of recv waiters
-	sendq    waitq  // list of send waiters
-
-	// lock protects all fields in hchan, as well as several
-	// fields in sudogs blocked on this channel.
-	//
-	// Do not change another G's status while holding this lock
-	// (in particular, do not ready a G), as this can deadlock
-	// with stack shrinking.
-	lock mutex
+          <h3 id="0-intro">0. Intro</h3>
+<p>With its concurrency properties, Go becomes one of the most popular languages in recent years. In Go concurrency, we have this convenient data structure to communicate between multiple goroutines - <strong>Channels</strong>. In this article, we are going to dive into the source code and have a deep understanding of it.</p>
+<ul>
+<li>soucre code from <code>src/runtime/chan.go</code></li>
+</ul>
+<h3 id="1-data-structure">1. Data Structure</h3>
+<p>First, let&rsquo;s take a look at the data structure.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">hchan</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">qcount</span>   <span style="color:#66d9ef">uint</span>           <span style="color:#75715e">// total data in the queue
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">dataqsiz</span> <span style="color:#66d9ef">uint</span>           <span style="color:#75715e">// size of the circular queue
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">buf</span>      <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// points to an array of dataqsiz elements
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">elemsize</span> <span style="color:#66d9ef">uint16</span>
+	<span style="color:#a6e22e">closed</span>   <span style="color:#66d9ef">uint32</span>
+	<span style="color:#a6e22e">elemtype</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">_type</span> <span style="color:#75715e">// element type
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">sendx</span>    <span style="color:#66d9ef">uint</span>   <span style="color:#75715e">// send index
+</span><span style="color:#75715e"></span>	
+	<span style="color:#a6e22e">recvx</span>    <span style="color:#66d9ef">uint</span>   <span style="color:#75715e">// receive index
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">recvq</span>    <span style="color:#a6e22e">waitq</span>  <span style="color:#75715e">// list of recv waiters
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">sendq</span>    <span style="color:#a6e22e">waitq</span>  <span style="color:#75715e">// list of send waiters
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">// lock protects all fields in hchan, as well as several
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// fields in sudogs blocked on this channel.
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// Do not change another G&#39;s status while holding this lock
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// (in particular, do not ready a G), as this can deadlock
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// with stack shrinking.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">lock</span> <span style="color:#a6e22e">mutex</span>
 }
 
-// and bidirectional linked list
-type waitq struct {
-	first *sudog
-	last  *sudog
+<span style="color:#75715e">// and bidirectional linked list
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">waitq</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">first</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sudog</span>
+	<span style="color:#a6e22e">last</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">sudog</span>
 }
 
-// a wrapper of goroutine
-type sudog struct {
-	// The following fields are protected by the hchan.lock of the
-	// channel this sudog is blocking on. shrinkstack depends on
-	// this for sudogs involved in channel ops.
+<span style="color:#75715e">// a wrapper of goroutine
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">sudog</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#75715e">// The following fields are protected by the hchan.lock of the
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// channel this sudog is blocking on. shrinkstack depends on
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// this for sudogs involved in channel ops.
+</span><span style="color:#75715e"></span>
+	<span style="color:#a6e22e">g</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">g</span>
 
-	g *g
+	<span style="color:#a6e22e">next</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sudog</span>
+	<span style="color:#a6e22e">prev</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sudog</span>
+	<span style="color:#a6e22e">elem</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// data element (may point to stack)
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">// The following fields are never accessed concurrently.
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// For channels, waitlink is only accessed by g.
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// For semaphores, all fields (including the ones above)
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// are only accessed when holding a semaRoot lock.
+</span><span style="color:#75715e"></span>
+	<span style="color:#a6e22e">acquiretime</span> <span style="color:#66d9ef">int64</span>
+	<span style="color:#a6e22e">releasetime</span> <span style="color:#66d9ef">int64</span>
+	<span style="color:#a6e22e">ticket</span>      <span style="color:#66d9ef">uint32</span>
 
-	next *sudog
-	prev *sudog
-	elem unsafe.Pointer // data element (may point to stack)
+	<span style="color:#75715e">// isSelect indicates g is participating in a select, so
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// g.selectDone must be CAS&#39;d to win the wake-up race.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">isSelect</span> <span style="color:#66d9ef">bool</span>
 
-	// The following fields are never accessed concurrently.
-	// For channels, waitlink is only accessed by g.
-	// For semaphores, all fields (including the ones above)
-	// are only accessed when holding a semaRoot lock.
+	<span style="color:#a6e22e">parent</span>   <span style="color:#f92672">*</span><span style="color:#a6e22e">sudog</span> <span style="color:#75715e">// semaRoot binary tree
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">waitlink</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sudog</span> <span style="color:#75715e">// g.waiting list or semaRoot
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">waittail</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sudog</span> <span style="color:#75715e">// semaRoot
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">c</span>        <span style="color:#f92672">*</span><span style="color:#a6e22e">hchan</span> <span style="color:#75715e">// channel
+</span><span style="color:#75715e"></span>}
 
-	acquiretime int64
-	releasetime int64
-	ticket      uint32
-
-	// isSelect indicates g is participating in a select, so
-	// g.selectDone must be CAS'd to win the wake-up race.
-	isSelect bool
-
-	parent   *sudog // semaRoot binary tree
-	waitlink *sudog // g.waiting list or semaRoot
-	waittail *sudog // semaRoot
-	c        *hchan // channel
-}
-
-</code></pre><p>We can separate into three parts. A <strong>ring buffer</strong>, two <strong>wait queues</strong>, and a <strong>lock</strong>.</p>
+</code></pre></div><p>We can separate <code>channel</code> into three parts. A <code>ring buffer</code>, two <code>wait queues</code>, and a <code>lock</code>.</p>
 <ol>
-<li>A ring buffer defines a space for the buffer channels (for a non-buffered channel, <strong>buf</strong> points to nil).</li>
-<li>The sendq and the recvq are two bidirectional linked list of send/recv waiter. TThe <strong>sendq</strong> and the <strong>recvq</strong> are two bidirectional linked list of send/recv waiter. The nodes in the waitq are <strong>sudog</strong> which is a wrapper of goroutines.</li>
-<li>A lock is to assert mutual exclusive to prevent race condition.</li>
+<li>A ring buffer(buf) is a space (for the buffer channels) to store the temporary data (for a non-buffered channel, <strong>buf</strong> points to nil).</li>
+<li>The <strong>sendq</strong> and the <strong>recvq</strong> are two bidirectional linked list of send/recv waiter. The nodes in the waitq are <strong>sudog</strong> which is a wrapper of goroutines.</li>
+<li>A lock is to assert mutual exclusive to prevent <strong>race condition</strong>.</li>
 </ol>
 <p>A visualization of the Channel data structure as below.</p>
 <figure>
     <img src="../../images/featured-post/channel_ds.png" height="350px"/> 
 </figure>
 
-<p>For the operat</p>
+<h3 id="2-operations">2. Operations</h3>
+<p>There are only 4 Operations for <code>channel</code>.</p>
+<pre><code>    i. Create a channel
+    ii. Push data into channel
+    iii. Receive data from channel
+    iv. Close a channel
+</code></pre><p>We will go through all the operations one by one.</p>
+<h5 id="i-create-a-channel">i. Create a channel</h5>
+<p>To create a channel, go compiler translate make state to <code>runtime.makechan</code></p>
+<blockquote>
+<p>make(chan interface{}, size)   —&gt;   runtime.makechan(interface{}, size)<br>
+make(chan interface{})         —&gt;   runtime.makechan(interface{}, 0)</p>
+</blockquote>
+<p>To create a non-buffer channel is actually to create a zero size channel.
+Let&rsquo;s take a look at the source code. The process break into 3 parts.</p>
+<ol>
+<li>validate params(check if mem size overflow).</li>
+<li>create ring buffer if size greater than 0.(buffer channel)</li>
+<li>assign value and create lock</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">makechan</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">chantype</span>, <span style="color:#a6e22e">size</span> <span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">hchan</span> {
+	<span style="color:#a6e22e">elem</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">elem</span>
+
+	<span style="color:#75715e">// compiler checks this but be safe.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">size</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">&lt;&lt;</span><span style="color:#ae81ff">16</span> {
+		<span style="color:#a6e22e">throw</span>(<span style="color:#e6db74">&#34;makechan: invalid channel element type&#34;</span>)
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">hchanSize</span><span style="color:#f92672">%</span><span style="color:#a6e22e">maxAlign</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">align</span> &gt; <span style="color:#a6e22e">maxAlign</span> {
+		<span style="color:#a6e22e">throw</span>(<span style="color:#e6db74">&#34;makechan: bad alignment&#34;</span>)
+	}
+    
+	<span style="color:#a6e22e">mem</span>, <span style="color:#a6e22e">overflow</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MulUintptr</span>(<span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">size</span>, uintptr(<span style="color:#a6e22e">size</span>))
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">overflow</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">mem</span> &gt; <span style="color:#a6e22e">maxAlloc</span><span style="color:#f92672">-</span><span style="color:#a6e22e">hchanSize</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">size</span> &lt; <span style="color:#ae81ff">0</span> {
+		panic(<span style="color:#a6e22e">plainError</span>(<span style="color:#e6db74">&#34;makechan: size out of range&#34;</span>))
+	}
+	
+	<span style="color:#75715e">// create channel and allocate ring buffer for buffer channel
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">hchan</span>
+	<span style="color:#66d9ef">switch</span> {
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">mem</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+		<span style="color:#75715e">// Queue or element size is zero.
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">c</span> = (<span style="color:#f92672">*</span><span style="color:#a6e22e">hchan</span>)(<span style="color:#a6e22e">mallocgc</span>(<span style="color:#a6e22e">hchanSize</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#66d9ef">true</span>))
+		<span style="color:#75715e">// Race detector uses this location for synchronization.
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">buf</span> = <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">raceaddr</span>()
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">ptrdata</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+		<span style="color:#75715e">// Elements do not contain pointers.
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// Allocate hchan and buf in one call.
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">c</span> = (<span style="color:#f92672">*</span><span style="color:#a6e22e">hchan</span>)(<span style="color:#a6e22e">mallocgc</span>(<span style="color:#a6e22e">hchanSize</span><span style="color:#f92672">+</span><span style="color:#a6e22e">mem</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#66d9ef">true</span>))
+		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">buf</span> = <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#a6e22e">c</span>), <span style="color:#a6e22e">hchanSize</span>)
+	<span style="color:#66d9ef">default</span>:
+		<span style="color:#75715e">// Elements contain pointers.
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">c</span> = new(<span style="color:#a6e22e">hchan</span>)
+		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">buf</span> = <span style="color:#a6e22e">mallocgc</span>(<span style="color:#a6e22e">mem</span>, <span style="color:#a6e22e">elem</span>, <span style="color:#66d9ef">true</span>)
+	}
+
+    <span style="color:#75715e">// assign value and create lock
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">elemsize</span> = uint16(<span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">size</span>)
+	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">elemtype</span> = <span style="color:#a6e22e">elem</span>
+	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">dataqsiz</span> = uint(<span style="color:#a6e22e">size</span>)
+	<span style="color:#a6e22e">lockInit</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">lock</span>, <span style="color:#a6e22e">lockRankHchan</span>)
+
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">debugChan</span> {
+		print(<span style="color:#e6db74">&#34;makechan: chan=&#34;</span>, <span style="color:#a6e22e">c</span>, <span style="color:#e6db74">&#34;; elemsize=&#34;</span>, <span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">size</span>, <span style="color:#e6db74">&#34;; dataqsiz=&#34;</span>, <span style="color:#a6e22e">size</span>, <span style="color:#e6db74">&#34;\n&#34;</span>)
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>
+}
+</code></pre></div><h5 id="ii-sendreceive-data-tofrom-channel">ii. Send/Receive data to/from channel</h5>
+<p>There are 4 different scenario for the Send/Receive.</p>
+<blockquote>
+<p>To send:<br>
+Case 1: Send to a buffer channel<br>
+Case 2: Send to a full buffer channel<br>
+Case 3: Send to a non-buffer channel<br>
+for case 2 and 3 are actually the same process. We will see the detail later.</p>
+</blockquote>
+<blockquote>
+<p>To receive:<br>
+Case 1: Receive from a buffer channel<br>
+Case 2: Receive from a empty buffer channel<br>
+Case 3: Receive from a non-buffer channel<br>
+for case 2 and 3 are actually the same process. We will see the detail later.</p>
+</blockquote>
+<p><strong>Case 1. Send to a buffer channel</strong>
+<figure>
+    <img src="../../images/featured-post/send_to_buffer.gif" height="350px"/> 
+</figure>
+</p>
 
         </div>
 
