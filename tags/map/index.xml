@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>map on TsungJen.io</title>
+    <link>https://tsungjenh.github.io/tags/map/</link>
+    <description>Recent content in map on TsungJen.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-tw</language>
+    <lastBuildDate>Sat, 25 Jul 2020 10:07:47 +0600</lastBuildDate>
+    
+	<atom:link href="https://tsungjenh.github.io/tags/map/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go Maps Source Code Review</title>
+      <link>https://tsungjenh.github.io/blog/go_map/</link>
+      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/go_map/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VSCode Tutorial</title>
+      <link>https://tsungjenh.github.io/blog/vscode/</link>
+      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/vscode/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

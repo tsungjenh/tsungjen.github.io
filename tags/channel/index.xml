@@ -6,10 +6,37 @@
     <description>Recent content in channel on TsungJen.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Wed, 29 Apr 2020 10:07:47 +0600</lastBuildDate>
+    <lastBuildDate>Thu, 30 Jul 2020 10:07:47 +0600</lastBuildDate>
     
 	<atom:link href="https://tsungjenh.github.io/tags/channel/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How does Kafka Consumer Work?</title>
+      <link>https://tsungjenh.github.io/blog/consumer_in_kafka/</link>
+      <pubDate>Thu, 30 Jul 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/consumer_in_kafka/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Garbage Collection in Go</title>
+      <link>https://tsungjenh.github.io/blog/gc_go/</link>
+      <pubDate>Wed, 29 Jul 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/gc_go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>How does Kafka Producer Work?</title>
+      <link>https://tsungjenh.github.io/blog/producer_in_kafka/</link>
+      <pubDate>Tue, 28 Jul 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/producer_in_kafka/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Go Channel Source Code Review</title>

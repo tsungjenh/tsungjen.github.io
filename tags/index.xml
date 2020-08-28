@@ -6,7 +6,7 @@
     <description>Recent content in Tags on TsungJen.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Wed, 29 Apr 2020 10:07:47 +0600</lastBuildDate>
+    <lastBuildDate>Thu, 30 Jul 2020 10:07:47 +0600</lastBuildDate>
     
 	<atom:link href="https://tsungjenh.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>channel</title>
       <link>https://tsungjenh.github.io/tags/channel/</link>
-      <pubDate>Wed, 29 Apr 2020 10:07:47 +0600</pubDate>
+      <pubDate>Thu, 30 Jul 2020 10:07:47 +0600</pubDate>
       
       <guid>https://tsungjenh.github.io/tags/channel/</guid>
       <description></description>
@@ -23,9 +23,27 @@
     <item>
       <title>Go</title>
       <link>https://tsungjenh.github.io/tags/go/</link>
-      <pubDate>Wed, 29 Apr 2020 10:07:47 +0600</pubDate>
+      <pubDate>Thu, 30 Jul 2020 10:07:47 +0600</pubDate>
       
       <guid>https://tsungjenh.github.io/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Scheduler</title>
+      <link>https://tsungjenh.github.io/tags/scheduler/</link>
+      <pubDate>Wed, 29 Jul 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/tags/scheduler/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>map</title>
+      <link>https://tsungjenh.github.io/tags/map/</link>
+      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/tags/map/</guid>
       <description></description>
     </item>
     

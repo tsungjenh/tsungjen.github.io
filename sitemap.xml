@@ -4,36 +4,76 @@
   
   <url>
     <loc>https://tsungjenh.github.io/categories/</loc>
-    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
+    <lastmod>2020-07-30T10:07:47+06:00</lastmod>
   </url>
   
   <url>
     <loc>https://tsungjenh.github.io/tags/channel/</loc>
-    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
+    <lastmod>2020-07-30T10:07:47+06:00</lastmod>
   </url>
   
   <url>
     <loc>https://tsungjenh.github.io/tags/go/</loc>
-    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
+    <lastmod>2020-07-30T10:07:47+06:00</lastmod>
   </url>
   
   <url>
     <loc>https://tsungjenh.github.io/categories/go/</loc>
-    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
+    <lastmod>2020-07-30T10:07:47+06:00</lastmod>
   </url>
   
   <url>
-    <loc>https://tsungjenh.github.io/blog/channel_ds/</loc>
-    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
+    <loc>https://tsungjenh.github.io/blog/consumer_in_kafka/</loc>
+    <lastmod>2020-07-30T10:07:47+06:00</lastmod>
   </url>
   
   <url>
     <loc>https://tsungjenh.github.io/tags/</loc>
-    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
+    <lastmod>2020-07-30T10:07:47+06:00</lastmod>
   </url>
   
   <url>
     <loc>https://tsungjenh.github.io/</loc>
+    <lastmod>2020-07-30T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/blog/gc_go/</loc>
+    <lastmod>2020-07-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/blog/go_scheduler/</loc>
+    <lastmod>2020-07-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/tags/scheduler/</loc>
+    <lastmod>2020-07-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/blog/producer_in_kafka/</loc>
+    <lastmod>2020-07-28T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/blog/go_map/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/tags/map/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/blog/vscode/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/blog/channel_ds/</loc>
     <lastmod>2020-04-29T10:07:47+06:00</lastmod>
   </url>
   
