@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>How does Kafka Consumer Work?</title>
+      <title>Introducing the Kafka Consumer: Examples with Golang</title>
       <link>https://tsungjenh.github.io/blog/consumer_in_kafka/</link>
       <pubDate>Thu, 30 Jul 2020 10:07:47 +0600</pubDate>
       
@@ -39,29 +39,11 @@
     </item>
     
     <item>
-      <title>How does Kafka Producer Work?</title>
-      <link>https://tsungjenh.github.io/blog/producer_in_kafka/</link>
-      <pubDate>Tue, 28 Jul 2020 10:07:47 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/producer_in_kafka/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Go Maps Source Code Review</title>
       <link>https://tsungjenh.github.io/blog/go_map/</link>
       <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
       
       <guid>https://tsungjenh.github.io/blog/go_map/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>VSCode Tutorial</title>
-      <link>https://tsungjenh.github.io/blog/vscode/</link>
-      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/vscode/</guid>
       <description></description>
     </item>
     

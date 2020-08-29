@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>How does Kafka Consumer Work?</title>
+      <title>Introducing the Kafka Consumer: Examples with Golang</title>
       <link>https://tsungjenh.github.io/blog/consumer_in_kafka/</link>
       <pubDate>Thu, 30 Jul 2020 10:07:47 +0600</pubDate>
       
@@ -39,11 +39,20 @@
     </item>
     
     <item>
-      <title>How does Kafka Producer Work?</title>
+      <title>Kafka Producer Deep Dive</title>
       <link>https://tsungjenh.github.io/blog/producer_in_kafka/</link>
       <pubDate>Tue, 28 Jul 2020 10:07:47 +0600</pubDate>
       
       <guid>https://tsungjenh.github.io/blog/producer_in_kafka/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>30 Useful Vim Shortcuts to Make You Productive</title>
+      <link>https://tsungjenh.github.io/blog/vim/</link>
+      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/vim/</guid>
       <description></description>
     </item>
     
@@ -57,11 +66,47 @@
     </item>
     
     <item>
-      <title>VSCode Tutorial</title>
+      <title>Locking Rows in MySQL: SELECT FOR UPDATE STATEMENT</title>
+      <link>https://tsungjenh.github.io/blog/row_lock/</link>
+      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/row_lock/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Redis Persistence</title>
+      <link>https://tsungjenh.github.io/blog/redis_storage/</link>
+      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/redis_storage/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Setup VSCode Environment for Go</title>
       <link>https://tsungjenh.github.io/blog/vscode/</link>
       <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
       
       <guid>https://tsungjenh.github.io/blog/vscode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Understanding MySQL Index</title>
+      <link>https://tsungjenh.github.io/blog/mysql_index/</link>
+      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/mysql_index/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Understanding Transaction Isolation in InnoDB</title>
+      <link>https://tsungjenh.github.io/blog/mysql_isolation/</link>
+      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/mysql_isolation/</guid>
       <description></description>
     </item>
     

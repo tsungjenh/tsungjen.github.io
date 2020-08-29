@@ -6,17 +6,26 @@
     <description>Recent content in Kafka on TsungJen.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Tue, 29 Oct 2019 10:07:47 +0600</lastBuildDate>
+    <lastBuildDate>Thu, 30 Jul 2020 10:07:47 +0600</lastBuildDate>
     
 	<atom:link href="https://tsungjenh.github.io/tags/kafka/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>An Introduction to Apache Kakfa</title>
-      <link>https://tsungjenh.github.io/blog/kafka_intro/</link>
-      <pubDate>Tue, 29 Oct 2019 10:07:47 +0600</pubDate>
+      <title>Introducing the Kafka Consumer: Examples with Golang</title>
+      <link>https://tsungjenh.github.io/blog/consumer_in_kafka/</link>
+      <pubDate>Thu, 30 Jul 2020 10:07:47 +0600</pubDate>
       
-      <guid>https://tsungjenh.github.io/blog/kafka_intro/</guid>
+      <guid>https://tsungjenh.github.io/blog/consumer_in_kafka/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kafka Producer Deep Dive</title>
+      <link>https://tsungjenh.github.io/blog/producer_in_kafka/</link>
+      <pubDate>Tue, 28 Jul 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/producer_in_kafka/</guid>
       <description></description>
     </item>
     

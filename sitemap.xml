@@ -8,22 +8,22 @@
   </url>
   
   <url>
-    <loc>https://tsungjenh.github.io/tags/channel/</loc>
-    <lastmod>2020-07-30T10:07:47+06:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://tsungjenh.github.io/tags/go/</loc>
     <lastmod>2020-07-30T10:07:47+06:00</lastmod>
   </url>
   
   <url>
-    <loc>https://tsungjenh.github.io/categories/go/</loc>
+    <loc>https://tsungjenh.github.io/blog/consumer_in_kafka/</loc>
     <lastmod>2020-07-30T10:07:47+06:00</lastmod>
   </url>
   
   <url>
-    <loc>https://tsungjenh.github.io/blog/consumer_in_kafka/</loc>
+    <loc>https://tsungjenh.github.io/tags/kafka/</loc>
+    <lastmod>2020-07-30T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/categories/kafka/</loc>
     <lastmod>2020-07-30T10:07:47+06:00</lastmod>
   </url>
   
@@ -38,7 +38,17 @@
   </url>
   
   <url>
+    <loc>https://tsungjenh.github.io/tags/garbage-collection/</loc>
+    <lastmod>2020-07-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://tsungjenh.github.io/blog/gc_go/</loc>
+    <lastmod>2020-07-29T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/categories/go/</loc>
     <lastmod>2020-07-29T10:07:47+06:00</lastmod>
   </url>
   
@@ -53,12 +63,32 @@
   </url>
   
   <url>
+    <loc>https://tsungjenh.github.io/tags/consumer/</loc>
+    <lastmod>2020-07-28T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://tsungjenh.github.io/blog/producer_in_kafka/</loc>
     <lastmod>2020-07-28T10:07:47+06:00</lastmod>
   </url>
   
   <url>
+    <loc>https://tsungjenh.github.io/blog/vim/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://tsungjenh.github.io/blog/go_map/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/tags/ide/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/blog/row_lock/</loc>
     <lastmod>2020-07-25T10:07:47+06:00</lastmod>
   </url>
   
@@ -68,8 +98,73 @@
   </url>
   
   <url>
+    <loc>https://tsungjenh.github.io/tags/mysql/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/categories/mysql/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/tags/persistence/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/tags/redis/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/categories/redis/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/blog/redis_storage/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://tsungjenh.github.io/blog/vscode/</loc>
     <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/blog/mysql_index/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/blog/mysql_isolation/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/tags/vim/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/categories/vim/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/tags/vscode/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/categories/vscode/</loc>
+    <lastmod>2020-07-25T10:07:47+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/tags/channel/</loc>
+    <lastmod>2020-04-29T10:07:47+06:00</lastmod>
   </url>
   
   <url>
