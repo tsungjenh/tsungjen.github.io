@@ -6,7 +6,7 @@
     <description>Recent content in Scheduler on TsungJen.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Wed, 29 Jul 2020 10:07:47 +0600</lastBuildDate>
+    <lastBuildDate>Sat, 05 Sep 2020 18:19:47 +0600</lastBuildDate>
     
 	<atom:link href="https://tsungjenh.github.io/tags/scheduler/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Go Context Source Code review</title>
       <link>https://tsungjenh.github.io/blog/go_context/</link>
-      <pubDate>Wed, 29 Jul 2020 10:07:47 +0600</pubDate>
+      <pubDate>Sat, 05 Sep 2020 18:19:47 +0600</pubDate>
       
       <guid>https://tsungjenh.github.io/blog/go_context/</guid>
       <description>Intro There are two classic methods in Go to handle concurrency.</description>
@@ -23,7 +23,7 @@
     <item>
       <title>Go Scheduler</title>
       <link>https://tsungjenh.github.io/blog/go_scheduler/</link>
-      <pubDate>Wed, 29 Jul 2020 10:07:47 +0600</pubDate>
+      <pubDate>Thu, 11 Jun 2020 02:12:05 +0600</pubDate>
       
       <guid>https://tsungjenh.github.io/blog/go_scheduler/</guid>
       <description></description>

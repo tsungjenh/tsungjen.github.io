@@ -12,12 +12,12 @@
     
     
     <item>
-      <title>Introducing the Kafka Consumer: Examples with Golang</title>
-      <link>https://tsungjenh.github.io/blog/consumer_in_kafka/</link>
-      <pubDate>Thu, 30 Jul 2020 10:07:47 +0600</pubDate>
+      <title>Go Context Source Code review</title>
+      <link>https://tsungjenh.github.io/blog/go_context/</link>
+      <pubDate>Sat, 05 Sep 2020 18:19:47 +0600</pubDate>
       
-      <guid>https://tsungjenh.github.io/blog/consumer_in_kafka/</guid>
-      <description></description>
+      <guid>https://tsungjenh.github.io/blog/go_context/</guid>
+      <description>Intro There are two classic methods in Go to handle concurrency.</description>
     </item>
     
     <item>
@@ -30,92 +30,29 @@
     </item>
     
     <item>
-      <title>Go Context Source Code review</title>
-      <link>https://tsungjenh.github.io/blog/go_context/</link>
-      <pubDate>Wed, 29 Jul 2020 10:07:47 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/go_context/</guid>
-      <description>Intro There are two classic methods in Go to handle concurrency.</description>
-    </item>
-    
-    <item>
-      <title>Go Scheduler</title>
-      <link>https://tsungjenh.github.io/blog/go_scheduler/</link>
-      <pubDate>Wed, 29 Jul 2020 10:07:47 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/go_scheduler/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Kafka Producer Deep Dive</title>
-      <link>https://tsungjenh.github.io/blog/producer_in_kafka/</link>
-      <pubDate>Tue, 28 Jul 2020 10:07:47 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/producer_in_kafka/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>30 Useful Vim Shortcuts to Make You Productive</title>
-      <link>https://tsungjenh.github.io/blog/vim/</link>
-      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/vim/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Go Maps Source Code Review</title>
       <link>https://tsungjenh.github.io/blog/go_map/</link>
-      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
+      <pubDate>Sat, 25 Jul 2020 22:44:32 +0800</pubDate>
       
       <guid>https://tsungjenh.github.io/blog/go_map/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>Go Scheduler</title>
+      <link>https://tsungjenh.github.io/blog/go_scheduler/</link>
+      <pubDate>Thu, 11 Jun 2020 02:12:05 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/go_scheduler/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Locking Rows in MySQL: SELECT FOR UPDATE STATEMENT</title>
       <link>https://tsungjenh.github.io/blog/row_lock/</link>
-      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
+      <pubDate>Thu, 07 May 2020 23:43:01 +0600</pubDate>
       
       <guid>https://tsungjenh.github.io/blog/row_lock/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Redis Persistence</title>
-      <link>https://tsungjenh.github.io/blog/redis_storage/</link>
-      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/redis_storage/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Setup VSCode Environment for Go</title>
-      <link>https://tsungjenh.github.io/blog/vscode/</link>
-      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/vscode/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Understanding MySQL Index</title>
-      <link>https://tsungjenh.github.io/blog/mysql_index/</link>
-      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/mysql_index/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Understanding Transaction Isolation in InnoDB</title>
-      <link>https://tsungjenh.github.io/blog/mysql_isolation/</link>
-      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/mysql_isolation/</guid>
       <description></description>
     </item>
     
@@ -126,6 +63,15 @@
       
       <guid>https://tsungjenh.github.io/blog/channel_ds/</guid>
       <description>0. Intro With its concurrency properties, Go becomes one of the most popular languages in recent years.</description>
+    </item>
+    
+    <item>
+      <title>Setup VSCode Environment for Go</title>
+      <link>https://tsungjenh.github.io/blog/vscode/</link>
+      <pubDate>Wed, 22 Jan 2020 20:12:32 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/vscode/</guid>
+      <description></description>
     </item>
     
   </channel>

@@ -6,7 +6,7 @@
     <description>Recent content in mysql on TsungJen.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Sat, 25 Jul 2020 10:07:47 +0600</lastBuildDate>
+    <lastBuildDate>Thu, 07 May 2020 23:43:01 +0600</lastBuildDate>
     
 	<atom:link href="https://tsungjenh.github.io/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,27 +14,9 @@
     <item>
       <title>Locking Rows in MySQL: SELECT FOR UPDATE STATEMENT</title>
       <link>https://tsungjenh.github.io/blog/row_lock/</link>
-      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
+      <pubDate>Thu, 07 May 2020 23:43:01 +0600</pubDate>
       
       <guid>https://tsungjenh.github.io/blog/row_lock/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Understanding MySQL Index</title>
-      <link>https://tsungjenh.github.io/blog/mysql_index/</link>
-      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/mysql_index/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Understanding Transaction Isolation in InnoDB</title>
-      <link>https://tsungjenh.github.io/blog/mysql_isolation/</link>
-      <pubDate>Sat, 25 Jul 2020 10:07:47 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/mysql_isolation/</guid>
       <description></description>
     </item>
     
