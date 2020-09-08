@@ -48,15 +48,6 @@
     </item>
     
     <item>
-      <title>Go Scheduler</title>
-      <link>https://tsungjenh.github.io/blog/go_scheduler/</link>
-      <pubDate>Thu, 11 Jun 2020 02:12:05 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/go_scheduler/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Go Channel Source Code Review</title>
       <link>https://tsungjenh.github.io/blog/channel_ds/</link>
       <pubDate>Wed, 29 Apr 2020 10:07:47 +0600</pubDate>
