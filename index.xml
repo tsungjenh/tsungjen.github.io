@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>Locking Rows in InnoDB: SELECT ... FOR UPDATE STATEMENT</title>
+      <link>https://tsungjenh.github.io/blog/row_lock/</link>
+      <pubDate>Thu, 27 Aug 2020 23:43:01 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/row_lock/</guid>
+      <description>Intro In high concurrency environments, the database write operation will easily suffer due to data inconsistency issue.</description>
+    </item>
+    
+    <item>
       <title>Garbage Collection in Go</title>
       <link>https://tsungjenh.github.io/blog/gc_go/</link>
       <pubDate>Wed, 29 Jul 2020 10:07:47 +0600</pubDate>
@@ -44,15 +53,6 @@
       <pubDate>Thu, 11 Jun 2020 02:12:05 +0600</pubDate>
       
       <guid>https://tsungjenh.github.io/blog/go_scheduler/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Locking Rows in MySQL: SELECT FOR UPDATE STATEMENT</title>
-      <link>https://tsungjenh.github.io/blog/row_lock/</link>
-      <pubDate>Thu, 07 May 2020 23:43:01 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/row_lock/</guid>
       <description></description>
     </item>
     

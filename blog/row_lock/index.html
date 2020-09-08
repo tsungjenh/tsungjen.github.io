@@ -107,21 +107,172 @@
         <a href="/categories/mysql"
           class="text-primary">Mysql</a>
         
-        <h2>Locking Rows in MySQL: SELECT FOR UPDATE STATEMENT</h2>
+        <h2>Locking Rows in InnoDB: SELECT &hellip; FOR UPDATE STATEMENT</h2>
         <div class="mb-3 post-meta">
           <span>By TsungJen Hsu</span>
           
           <span class="border-bottom border-primary px-2 mx-1"></span>
-          <span>07 May 2020</span>
+          <span>27 August 2020</span>
           
         </div>
         
          <div style="height:300px; margin-bottom:8px">
-         <img src="https://tsungjenh.github.io/images/featured-post/lock.png" class="img-thumbnail  w-100 mb-4" alt="Locking Rows in MySQL: SELECT FOR UPDATE STATEMENT" style="height: 100%; width: 100%; object-fit: contain">
+         <img src="https://tsungjenh.github.io/images/featured-post/lock.png" class="img-thumbnail  w-100 mb-4" alt="Locking Rows in InnoDB: SELECT &hellip; FOR UPDATE STATEMENT" style="height: 100%; width: 100%; object-fit: contain">
          </div>
          
         <div class="content mb-5">
-          
+          <p> </p>
+<h5 id="intro">Intro</h5>
+<p>In high concurrency environments, the database write operation will easily suffer due to data inconsistency issue. A simple way to resolve the issue is to use an exclusive lock. In this article, we are going to talk about the usage of <code>SELECT ... FOR UPDATE</code> statement which is an exlusive lock in <code>MySQL InnoDB</code>.</p>
+<hr>
+<h5 id="a-common-race-condition-issue">A Common Race Condition Issue</h5>
+<p>Suppose we have a table <code>employee</code> with the following schema.</p>
+<pre><code>mysql&gt; desc employee;
++--------+---------------------+------+-----+---------+----------------+
+| Field  | Type                | Null | Key | Default | Extra          |
++--------+---------------------+------+-----+---------+----------------+
+| id     | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(32)         | YES  | MUL | NULL    |                |
+| salary | int(8)              | NO   |     | NULL    |                |
++--------+---------------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+mysql&gt; SELECT * From employee;
++----+-------+--------+
+| id | name  | salary |
++----+-------+--------+
+|  1 | Alex  |   1300 |
+|  2 | Amy   |   3000 |
+|  3 | Bruce |   5500 |
+|  4 | Jason |   NULL |
++----+-------+--------+
+4 rows in set (0.00 sec)
+</code></pre><p>There are two transaction,</p>
+<pre><code>// Trasaction A to increase salary
+mysql&gt;&gt; set autocommit = 0;
+mysql&gt;&gt; SELECT * From employee WHERE id = 1;
+// a increase logic for salary
+mysql&gt;&gt; UPDATE employee SET salary = new_salary WHERE id=1;
+mysql&gt;&gt; commit;
+</code></pre><pre><code>// Trasaction B to decrease salary
+mysql&gt;&gt; set autocommit = 0;
+mysql&gt;&gt; SELECT * From employee WHERE id = 1;
+// another calculation logic for salary
+mysql&gt;&gt; UPDATE employee SET salary = new_salary_2 WHERE id=1;
+mysql&gt;&gt; commit;
+</code></pre><p>If transaction B execute the <code>SELECT</code> statement before Transaction A execute the <code>UPDATE</code> statement. The data read by Transaction B will still be the old data which is the salary without increased. To prevent the issue happened, we want to a lock to prevent someone read the data while the <strong>write</strong> Operation are still going.</p>
+<hr>
+<h5 id="select--for-update-statement">SELECT &hellip; FOR UPDATE Statement</h5>
+<p>A <strong>SELECT &hellip; FOR UPDATE</strong> reads the latest available data, setting exclusive locks on each row it reads. Thus, it sets the same locks a searched SQL UPDATE would set on the rows. If a row is locked by a transaction, a <strong>SELECT &hellip; FOR UPDATE</strong> transaction that requests the same locked row must wait until the blocking transaction releases the row lock. This behavior prevents transactions from updating or deleting rows that are queried for updates by other transactions. However, waiting for a row lock to be released is not necessary if you want the query to return immediately when a requested row is locked, or if excluding locked rows from the result set is acceptable.</p>
+<blockquote>
+<p>The lock can be a <strong>row-level</strong> lock or a <strong>table-level</strong> lock depends on the query.</p>
+</blockquote>
+<hr>
+<h5 id="row-level-vs-table-level">Row-level v.s. Table-level</h5>
+<p>According to the Mysql InnoDB document, the conclusion is as belows</p>
+<pre><code>Case 1: row is not existed                        -&gt; No lock
+Case 2: query with index and hit the index        -&gt; Row is locked
+Case 3: query with index but index isn't hit      -&gt; Table is locked
+Case 4: query without index                       -&gt; Table is locked
+</code></pre><ol>
+<li><strong>Row is not existed</strong>:</li>
+</ol>
+<pre><code>SELECT * FROM employee WHERE id=-1 FOR UPDATE;
+</code></pre><ol start="2">
+<li><strong>Query with index and hit the index</strong>:</li>
+</ol>
+<pre><code># statement 1
+mysql&gt;&gt; SELECT * From employee WHERE id = 1 FOR UPDATE;
++----+------+--------+
+| id | name | salary |
++----+------+--------+
+|  1 | Alex |   1300 |
++----+------+--------+
+1 row in set (0.00 sec)
+// wait for a while to release
+mysql&gt;&gt; commit;
+
+------------------------------------------------------------
+// row is blocked
+mysql&gt;&gt; SELECT * From employee WHERE id = 1 FOR UPDATE;
++----+------+--------+
+| id | name | salary |
++----+------+--------+
+|  1 | Alex |   1300 |
++----+------+--------+
+1 row in set (6.04 sec)
+
+------------------------------------------------------------
+// other row is not blocked
+mysql&gt; SELECT * From employee WHERE id = 2 FOR UPDATE;
++----+------+--------+
+| id | name | salary |
++----+------+--------+
+|  2 | Amy  |   3000 |
++----+------+--------+
+1 row in set (0.00 sec)
+</code></pre><ol start="3">
+<li><strong>Query with index but index isn&rsquo;t hit</strong></li>
+</ol>
+<pre><code>// Query with index but index isn't hit
+mysql&gt; SELECT * FROM employee WHERE salary is null FOR UPDATE;
++----+-------+--------+
+| id | name  | salary |
++----+-------+--------+
+|  4 | Jason |   NULL |
++----+-------+--------+
+1 row in set (0.00 sec)
+// wait for a while to release
+mysql&gt;&gt; commit;
+------------------------------------------------------------
+// row is blocked
+mysql&gt; SELECT * From employee WHERE id = 4 FOR UPDATE;
++----+-------+--------+
+| id | name  | salary |
++----+-------+--------+
+|  4 | Jason |   NULL |
++----+-------+--------+
+1 row in set (4.30 sec)
+------------------------------------------------------------
+// other row is blocked
+mysql&gt; SELECT * From employee WHERE id = 2 FOR UPDATE;
++----+------+--------+
+| id | name | salary |
++----+------+--------+
+|  2 | Amy  |   3000 |
++----+------+--------+
+1 row in set (3.48 sec)
+</code></pre><ol start="4">
+<li><strong>Query without index</strong></li>
+</ol>
+<pre><code>// Query without index
+mysql&gt; SELECT * From employee WHERE salary=1300 FOR UPDATE;
++----+------+--------+
+| id | name | salary |
++----+------+--------+
+|  1 | Alex |   1300 |
++----+------+--------+
+1 row in set (0.00 sec)
+// wait for a while to release
+mysql&gt;&gt; commit;
+------------------------------------------------------------
+// row is blocked
+mysql&gt; SELECT * From employee WHERE id = 1 FOR UPDATE;
++----+------+--------+
+| id | name | salary |
++----+------+--------+
+|  1 | Alex |   1300 |
++----+------+--------+
+1 row in set (5.20 sec)
+------------------------------------------------------------
+// other row is blocked
+mysql&gt; SELECT * From employee WHERE id = 2 FOR UPDATE;
++----+------+--------+
+| id | name | salary |
++----+------+--------+
+|  2 | Amy  |   3000 |
++----+------+--------+
+1 row in set (5.63 sec)
+</code></pre>
         </div>
 
         

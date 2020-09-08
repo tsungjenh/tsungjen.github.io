@@ -38,6 +38,21 @@
   </url>
   
   <url>
+    <loc>https://tsungjenh.github.io/blog/row_lock/</loc>
+    <lastmod>2020-08-27T23:43:01+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/tags/mysql/</loc>
+    <lastmod>2020-08-27T23:43:01+06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tsungjenh.github.io/categories/mysql/</loc>
+    <lastmod>2020-08-27T23:43:01+06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://tsungjenh.github.io/tags/garbage-collection/</loc>
     <lastmod>2020-07-29T10:07:47+06:00</lastmod>
   </url>
@@ -60,21 +75,6 @@
   <url>
     <loc>https://tsungjenh.github.io/blog/go_scheduler/</loc>
     <lastmod>2020-06-11T02:12:05+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/blog/row_lock/</loc>
-    <lastmod>2020-05-07T23:43:01+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/tags/mysql/</loc>
-    <lastmod>2020-05-07T23:43:01+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tsungjenh.github.io/categories/mysql/</loc>
-    <lastmod>2020-05-07T23:43:01+06:00</lastmod>
   </url>
   
   <url>
