@@ -30,9 +30,18 @@
     </item>
     
     <item>
+      <title>Understanding Go Scheduler</title>
+      <link>https://tsungjenh.github.io/blog/go_scheduler/</link>
+      <pubDate>Wed, 15 Jul 2020 02:12:05 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/go_scheduler/</guid>
+      <description>Intro One of the biggest feature for Go is the scheduler.</description>
+    </item>
+    
+    <item>
       <title>Garbage Collection in Go</title>
       <link>https://tsungjenh.github.io/blog/gc_go/</link>
-      <pubDate>Wed, 29 Jul 2020 10:07:47 +0600</pubDate>
+      <pubDate>Mon, 29 Jun 2020 10:07:47 +0600</pubDate>
       
       <guid>https://tsungjenh.github.io/blog/gc_go/</guid>
       <description></description>
@@ -41,19 +50,10 @@
     <item>
       <title>Go Maps Source Code Review</title>
       <link>https://tsungjenh.github.io/blog/go_map/</link>
-      <pubDate>Sat, 25 Jul 2020 22:44:32 +0800</pubDate>
+      <pubDate>Mon, 25 May 2020 22:44:32 +0800</pubDate>
       
       <guid>https://tsungjenh.github.io/blog/go_map/</guid>
       <description></description>
-    </item>
-    
-    <item>
-      <title>Understanding Go Scheduler</title>
-      <link>https://tsungjenh.github.io/blog/go_scheduler/</link>
-      <pubDate>Thu, 11 Jun 2020 02:12:05 +0600</pubDate>
-      
-      <guid>https://tsungjenh.github.io/blog/go_scheduler/</guid>
-      <description>Intro One of the biggest feature for Go is the scheduler.</description>
     </item>
     
     <item>
