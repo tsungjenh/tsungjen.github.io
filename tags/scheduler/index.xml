@@ -20,5 +20,14 @@
       <description>Intro There are two classic methods in Go to handle concurrency.</description>
     </item>
     
+    <item>
+      <title>Understanding Go Scheduler</title>
+      <link>https://tsungjenh.github.io/blog/go_scheduler/</link>
+      <pubDate>Thu, 11 Jun 2020 02:12:05 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/go_scheduler/</guid>
+      <description>Intro One of the biggest feature for Go is the scheduler.</description>
+    </item>
+    
   </channel>
 </rss>

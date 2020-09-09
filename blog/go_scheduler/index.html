@@ -107,7 +107,7 @@
         <a href="/categories/go"
           class="text-primary">Go</a>
         
-        <h2>Go Scheduler</h2>
+        <h2>Understanding Go Scheduler</h2>
         <div class="mb-3 post-meta">
           <span>By TsungJen Hsu</span>
           
@@ -117,11 +117,97 @@
         </div>
         
          <div style="height:300px; margin-bottom:8px">
-         <img src="https://tsungjenh.github.io/images/featured-post/go_scheduler.png" class="img-thumbnail  w-100 mb-4" alt="Go Scheduler" style="height: 100%; width: 100%; object-fit: contain">
+         <img src="https://tsungjenh.github.io/images/featured-post/go_scheduler.png" class="img-thumbnail  w-100 mb-4" alt="Understanding Go Scheduler" style="height: 100%; width: 100%; object-fit: contain">
          </div>
          
         <div class="content mb-5">
-          
+          <p> </p>
+<h4 id="intro">Intro</h4>
+<p>One of the biggest feature for Go is the <strong>scheduler</strong>. The scheduler allows goroutines sheduling works in the user space and has very good performance for concurrency. In this article, I want to talk about what is go scheduler and how does it work. By understanding go scheduler will allow you to make good decision and use the goroutines correctly.</p>
+<hr>
+<h4 id="why-do-we-need-scheduler-in-go">Why do we need scheduler in Go?</h4>
+<p>A short answer: <strong>Becaues Go uses goroutines</strong>. Goroutines are user space threads that run uppon the OS thread. The operating system is not aware of goroutines since it run in the user space. Thus, Go needs a scheduler in runtime to handle and schedule the state of goroutines. In other words, Go scheduler multiplexes goroutines onto kernel threads.</p>
+<blockquote>
+<p>Reference for the reasons why Go use goroutines. <a href="https://www.geeksforgeeks.org/golang-goroutine-vs-thread/">Goroutine v.s. Thread</a></p>
+</blockquote>
+<hr>
+<h4 id="when-do-it-schedules">When do it schedules?</h4>
+<p>There are 4 classical scenes that Go scheduler needs to make scheduling decision.</p>
+<ol>
+<li>Creation of goroutines: either schedule to run or put it into the wait queue</li>
+<li>System calls: switch the goroutine and allow other goroutine to use the CPU</li>
+<li>I/O Blocking: switch the goroutine and allow other goroutine to use the CPU</li>
+<li>I/O Complete: put the blocked goroutine back to the wait queue</li>
+</ol>
+<p>From the example, you can see the goal of the schedule is to optimize the usage of the CPU and try to have the CPU always running if there is any goroutine is waiting for the computing resource.</p>
+<blockquote>
+<p>For (2), (3), a kernel thread may be blocked.</p>
+</blockquote>
+<hr>
+<h4 id="is-go-scheduler-preemptive">Is Go scheduler preemptive?</h4>
+<p>Based on Go 1.14, Go scheduler is <strong>preemptive</strong>. The Go 1.14 introduces a new technique of asynchronous preemption which is triggered based on a time condition. There is a thread <code>sysmon</code>, dedicated to watching long-running goroutines and emit a signal if a long-running goroutine is found. Once a signal is received, Go will push an instruction to the program counter, to make it looks like the running program called a function in the runtime. This function parks the goroutine and hands it to the scheduler that will run another one.</p>
+<blockquote>
+<p>Noted that a goroutine cannot be blocked in anywhere. The current instruction should be a safe point.</p>
+</blockquote>
+<hr>
+<h4 id="the-mpg-model">The &ldquo;MPG&rdquo; Model</h4>
+<p><figure>
+    <img src="../../images/featured-post/mpg.png" height="80px"/> 
+</figure>
+
+There are 3 main components in Go scheduler.</p>
+<ol>
+<li><strong>M(Machine)</strong>:     Kernel Thread. This is the thread managed by the OS</li>
+<li><strong>P(Processor)</strong>:   A logical processor to manage the Local Run Queue(LRQ) and put the goroutine to run in the &ldquo;M&rdquo;</li>
+<li><strong>G(Goroutine)</strong>:   The goroutines</li>
+</ol>
+<p>For a N cores CPU machines, the maximal parallels we can have is equal to N which means that we will have at most N MPG pairs in the system. A visualization of a 2 cores machine is as belows.</p>
+<figure>
+    <img src="../../images/featured-post/mpg_model.png" height="300px"/> 
+</figure>
+
+<p>There are 2 types of wait queue in the model. Local Run Queue and Global Run Queue.</p>
+<ol>
+<li><strong>Local run queue</strong> has higher priority to be execute. Access by the process only. Unless there is a stealing happaned</li>
+<li><strong>Global run queue</strong> has lower priority. Once the local run queue is empty. Processor will consider to fetch goroutine from the Global Run Queue</li>
+</ol>
+<p>The idea of local run queue is to prevent the resoucre competition from each processor. If we only have one global queue, everytime a processor access a queue needs to acquire the lock(prevent race condition) which will cause a bad performance.</p>
+<hr>
+<h4 id="context-switch">Context Switch</h4>
+<p>The context switch for goroutines is in the thread and when a switch occurs, only 3 registers need to be saved/restored - <strong>Program Counter</strong>, <strong>Stack Pointer</strong>, and <strong>DX</strong>. From the OS&rsquo;s perspective Go program behaves as an event-driven program. A waiting goroutine will be placed in the wait queue for later execution. Therefore even thousands of goroutine will not effect the context switch since processor fetch from a queue with <strong>O(1)</strong> complexity</p>
+<hr>
+<h4 id="when-a-thread-is-idlelocal-queue-is-empty">When a thread is idle(local queue is empty)</h4>
+<p>To optimize the CPU usage, Go scheduler will prevent the M(Thread) to be idle. In others words, always have goroutines in each local run queue if possible. If the local run queue is empty, the strategy is as belows.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">schedule</span>() {
+    <span style="color:#75715e">// only 1/61 of the time, check the global runnable queue for a G.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// if not found, check the local queue.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// if not found,
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//     try to steal from other Ps.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//     if not, check the global runnable queue.
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ol>
+<li>1/61 of the time, fetch a goroutine from global run queue.</li>
+<li>Try to steal from other MPG&rsquo;s Local run queue</li>
+</ol>
+<p>60/61 of the times, Go scheduler will do a work stealing. It will randomly pick a process a steal a half of the goroutines from its local runqueue. If it fail to steal, then it will try to fetch from the global queue instead. <strong>Again, we always try to avoid access global queue which requires the lock acquisition</strong>.</p>
+<hr>
+<h4 id="when-a-thread-is-blocked-by-os">When a thread is blocked by OS</h4>
+<p>If the kernel thread is blocked (ex: syscall), the <strong>M(machine)</strong> attached to it will also be blocked. There may be a list of goroutines in the local run queue waiting for the execution. If we don&rsquo;t handle it, the goroutines in the local run queue will wait until the thread is released. A straight forward solution is to put those goroutines into the global run queues. However, accessing global run queue requires a lock acquisition which causes a bad performance. In fact, Go scheduler instead of put it into the global run queue, it will try to find an idle thread to take over the <strong>P</strong> and its LRQ. After the OS Thread is released, Go scheduler will try to see there is any <strong>P</strong> with LRQ is looking for the idle thread. If it can&rsquo;t find it, It will put the <strong>G</strong> to the global run queue then go to sleep.</p>
+<figure>
+    <img src="../../images/featured-post/goroutine_block.png" height="300px"/> 
+</figure>
+
+<hr>
+<h4 id="spinning-thread">Spinning Thread</h4>
+<p>You may feel weird why is there any idle thread. Isn&rsquo;t Go scheduler suppose to prevent threads from being idle? Before we answer the question, we must know an <strong>OS Thread is much more heavier than a goroutine</strong>. To frequently create or destroy a OS Thread might hurt the performance. In the case of thread block (the P and LRQ is missing the &ldquo;M&rdquo;(Thread)), We can either wait until the block is released or find a new thread to take over the P and LRQ. Instead of creating the thread at the moment, Go introduces <code>spinning thread</code> to have thread standby to serve. It may hurt extra CPU power, but it will minimize the cost if a preemption or a block occur. A thread is spinning if:</p>
+<ol>
+<li>An <strong>M</strong> with a <strong>P</strong> assignment is looking for a runnable goroutine.</li>
+<li>An <strong>M</strong> without a <strong>P</strong> assignment is looking for available <strong>P</strong>s.</li>
+<li>Scheduler also unparks an additional thread and spins it when it is readying a goroutine if there is an idle <strong>P</strong> and there are no other spinning threads.
+There are at most GOMAXPROCS spinning <strong>M</strong>s at any time. When a spinning thread finds work, it takes itself out of spinning state.</li>
+</ol>
+<p>Idle threads with a <strong>P</strong> assignment don’t block if there are idle Ms without a <strong>P</strong> assignment. When new goroutines are created or an <strong>M</strong> is being blocked, scheduler ensures that there is at least one spinning <strong>M</strong>. This ensures that there are no runnable goroutines that can be otherwise running; and avoids excessive M blocking/unblocking.</p>
+
         </div>
 
         
