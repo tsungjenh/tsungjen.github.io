@@ -121,7 +121,99 @@
          </div>
          
         <div class="content mb-5">
-          
+          <p> </p>
+<h4 id="introduction">Introduction</h4>
+<p>A <strong>Garbage collector</strong> is a design of automatic heap memory management, it attempts to free up the allocations that are no long needed while keeping the allocations that are still in use. It makes a programmer&rsquo;s life easier, with GC, it helps to prevent bugs such as dangling pointer bugs, double free bugs, memory leaks etc. On the other hand, it consumes more CPU and introduces more latency.</p>
+<p>In this article, we are going to talk about the process of garbage collection in Go, including the phase of GC, strategies and design. By understanding GC, a developer can make better decision on memory allocation and write better code.</p>
+<hr>
+<h4 id="mark-sweap">Mark-Sweap</h4>
+<p>Mark-Sweap is a classical algorithms to implement a garbage collector. The process including a mark phase and a sweep phase.</p>
+<ol>
+<li><strong>Mark Phase</strong> - Mark the survival objects starting from root objects</li>
+</ol>
+<p><figure>
+    <img src="../../images/featured-post/mark.png" height="100px"/> 
+</figure>
+
+2. <strong>Sweep Phase</strong> - Loop over the objects and free up the unmarked objects</p>
+<figure>
+    <img src="../../images/featured-post/sweep.png" height="70px"/> 
+</figure>
+
+<blockquote>
+<p>The garbage collection in Go is based on the idea of Mark-Sweep.</p>
+</blockquote>
+<hr>
+<h4 id="stategies">Stategies</h4>
+<h5 id="1-stop-the-world-stw">1. Stop The World (STW)</h5>
+<p>A goroutine can update the object reference during the garbage collection. This can lead to a free up to a in used object. To prevent this case, we need to stop all the running goroutine(Stop the world) during GC. However, STW means all the goroutines are not working which will lead to a bad performance.
+<figure>
+    <img src="../../images/featured-post/gc_model.png" height="250px"/> 
+</figure>
+</p>
+<h5 id="2-tri-color-marking">2. tri-color marking</h5>
+<p>In Go garbage collection, it uses tri-color marking algorithms. The algorithms marks all the objects into 3 colors - white, gray and black.<br>
+<strong>black color</strong> - active objects, those objects can be visited from root objects<br>
+<strong>gray color</strong>  - active objects, a temporary state which will later be marked as black<br>
+<strong>white color</strong> - nonactive objects, the objects will later be free up<br>
+<figure>
+    <img src="../../images/featured-post/tri-color.png" height="100px"/> 
+</figure>
+
+The algorithms is quite straight forward as belows</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">markAllRootObjetcsToGray</span>()
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">len</span>(<span style="color:#a6e22e">grayObjetcs</span>) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>
+    <span style="color:#a6e22e">MarkOneGrayObjectsToBlack</span>()
+    <span style="color:#a6e22e">MarkAllObjectsPointedByThatBlackedObjectToGray</span>()
+</code></pre></div><figure>
+    <img src="../../images/featured-post/marking.png" height="400px"/> 
+</figure>
+
+<h5 id="3-write-barrier">3. Write Barrier</h5>
+<p>As we mentions above, STW(stop the world) can lead to a bad performance. <code>Write barrier</code> is introduced to solved the problem, it ensures the invariant in tri-color marking. Hence, we can restart the goroutines after the write barrier is turned on.</p>
+<p><strong>1. Dijstra Write Barrier</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">writePointer</span>(<span style="color:#a6e22e">slot</span>, <span style="color:#a6e22e">ptr</span>)<span style="color:#f92672">:</span>
+    <span style="color:#a6e22e">shade</span>(<span style="color:#a6e22e">ptr</span>)
+    <span style="color:#f92672">*</span><span style="color:#a6e22e">slot</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ptr</span>
+</code></pre></div><p><figure>
+    <img src="../../images/featured-post/dijstra.png" height="150px"/> 
+</figure>
+
+<strong>2. Yuasa Write Barrier</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">writePointer</span>(<span style="color:#a6e22e">slot</span>, <span style="color:#a6e22e">ptr</span>)
+    <span style="color:#a6e22e">shade</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">slot</span>)
+    <span style="color:#f92672">*</span><span style="color:#a6e22e">slot</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ptr</span>
+</code></pre></div><figure>
+    <img src="../../images/featured-post/yuasa.png" height="150px"/> 
+</figure>
+
+<hr>
+<h4 id="phase-of-gc">Phase of GC</h4>
+<p>There are 3 phases in Go garbage collection.<br>
+<strong>1. Mark Setup</strong><br>
+<strong>2. Marking</strong><br>
+<strong>3. Mark Termination</strong><br>
+Let&rsquo;s go through the phases one by one</p>
+<h5 id="mark-setup">Mark Setup</h5>
+<p>When a collection starts, the first activity that must be performed is turning on the Write Barrier. The purpose of the Write Barrier is to allow the collector to maintain data integrity on the heap during a collection since both the collector and application goroutines will be running concurrently.<br>
+In order to turn the Write Barrier on, every application goroutine running must be stopped. This activity is usually very quick, within 10 to 30 microseconds on average. That is, as long as the application goroutines are behaving properly.
+<figure>
+    <img src="../../images/featured-post/stw.png" height="300px"/> 
+</figure>
+</p>
+<h5 id="marking">Marking</h5>
+<p>Once the Write Barrier is turned on, the collector commences with the Marking phase. The first thing the collector does is take 25% of the available CPU capacity for itself. The collector uses Goroutines to do the collection work and needs the same P’s and M’s the application Goroutines use. This means for our 4 threaded Go program, one entire P will be dedicated to collection work.</p>
+<p>If the collector determines that it needs to slow down allocations, it will recruit the application Goroutines to assist with the Marking work. This is called a Mark Assist. The amount of time any application Goroutine will be placed in a Mark Assist is proportional to the amount of data it’s adding to heap memory. One positive side effect of Mark Assist is that it helps to finish the collection faster.
+<figure>
+    <img src="../../images/featured-post/gc_ma.png" height="150px"/> 
+</figure>
+</p>
+<h5 id="mark-termination">Mark Termination</h5>
+<p>Once the Marking work is done, the next phase is Mark Termination. This is when the Write Barrier is turned off(STW again), various clean up tasks are performed, and the next collection goal is calculated. Goroutines that find themselves in a tight loop during the Marking phase can also cause Mark Termination STW latencies to be extended.</p>
+<hr>
+<h4 id="conclusion">Conclusion</h4>
+<p>In this article, we only focus on the idea of Go garbage collection without actual implementation details. We can see that it is not free to allocate memory in Go, garbage collector takes time to do the memory release for us(although a programmer might not aware of it). As a programmer, we should use the allocation cleverly and put your faith and trust in the garbage collector to keep the heap healthy and your application running consistently.</p>
+
         </div>
 
         
