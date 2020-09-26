@@ -155,7 +155,7 @@ To solve this problem we can do it by properly set the size and probing factor i
 Rules:<br>
 <strong>1. linear</strong> - ax + b &ndash;&gt; let a = 1 or gcd(a, size) = 1<br>
 <strong>2. quadratic</strong> - ax^2 + bx + c &ndash;&gt; choose (x^2 + x) / 2 and size is a power of 2<br>
-<strong>double hashing</strong> - p(x, k) = x * h&rsquo;(x) &ndash;&gt; linear hashing &ndash;&gt; gcd(h&rsquo;(x), size) must be 1 &ndash;&gt; choose size to be prime.</p>
+<strong>3. double hashing</strong> - p(x, k) = x * h&rsquo;(x) &ndash;&gt; linear hashing &ndash;&gt; gcd(h&rsquo;(x), size) must be 1 &ndash;&gt; choose size to be prime.</p>
 <h4 id="8-max-load-factor">8. Max Load Factor</h4>
 <p>A hash table has to adjust the size as the data stored increases. A max load factor is a flag to indicated whether the table size should increase. A proper used of max load factor can prevent the worst case complexity occurs.</p>
 <figure>
