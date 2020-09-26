@@ -6,7 +6,7 @@
     <description>Recent content in Map on TsungJen.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Mon, 29 Jun 2020 22:44:32 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2020 22:44:32 +0800</lastBuildDate>
     
 	<atom:link href="https://tsungjenh.github.io/tags/map/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Go Map Source Code Review</title>
       <link>https://tsungjenh.github.io/blog/go_map/</link>
-      <pubDate>Mon, 29 Jun 2020 22:44:32 +0800</pubDate>
+      <pubDate>Sun, 23 Aug 2020 22:44:32 +0800</pubDate>
       
       <guid>https://tsungjenh.github.io/blog/go_map/</guid>
       <description>1. Intro Map is an important data structure in Go.</description>
