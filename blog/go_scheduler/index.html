@@ -123,7 +123,7 @@
         <div class="content mb-5">
           <p> </p>
 <h4 id="intro">Intro</h4>
-<p>One of the biggest feature for Go is the <strong>scheduler</strong>. The scheduler allows goroutines sheduling works in the user space and has very good performance for concurrency. In this article, I want to talk about what is go scheduler and how does it work. By understanding go scheduler will allow you to make good decision and use the goroutines correctly.</p>
+<p>One of the biggest feature for Go is the <code>Go Scheduler</code>. The scheduler allows goroutines sheduling works in the user space and has very good performance for concurrency. In this article, I want to talk about what is go scheduler and how does it work. By understanding go scheduler will allow you to make good decision and use the goroutines correctly.</p>
 <hr>
 <h4 id="why-do-we-need-scheduler-in-go">Why do we need scheduler in Go?</h4>
 <p>A short answer: <strong>Becaues Go uses goroutines</strong>. Goroutines are user space threads that run uppon the OS thread. The operating system is not aware of goroutines since it run in the user space. Thus, Go needs a scheduler in runtime to handle and schedule the state of goroutines. In other words, Go scheduler multiplexes goroutines onto kernel threads.</p>
@@ -192,7 +192,7 @@ There are 3 main components in Go scheduler.</p>
 <p>60/61 of the times, Go scheduler will do a work stealing. It will randomly pick a process a steal a half of the goroutines from its local runqueue. If it fail to steal, then it will try to fetch from the global queue instead. <strong>Again, we always try to avoid access global queue which requires the lock acquisition</strong>.</p>
 <hr>
 <h4 id="when-a-thread-is-blocked-by-os">When a thread is blocked by OS</h4>
-<p>If the kernel thread is blocked (ex: syscall), the <strong>M(machine)</strong> attached to it will also be blocked. There may be a list of goroutines in the local run queue waiting for the execution. If we don&rsquo;t handle it, the goroutines in the local run queue will wait until the thread is released. A straight forward solution is to put those goroutines into the global run queues. However, accessing global run queue requires a lock acquisition which causes a bad performance. In fact, Go scheduler instead of put it into the global run queue, it will try to find an idle thread to take over the <strong>P</strong> and its LRQ. After the OS Thread is released, Go scheduler will try to see there is any <strong>P</strong> with LRQ is looking for the idle thread. If it can&rsquo;t find it, It will put the <strong>G</strong> to the global run queue then go to sleep.</p>
+<p>If the kernel thread is blocked (ex: syscall), the M(machine) attached to it will also be blocked. There may be a list of goroutines in the local run queue waiting for the execution. If we don&rsquo;t handle it, the goroutines in the local run queue will wait until the thread is released. A straight forward solution is to put those goroutines into the global run queues. However, accessing global run queue requires a lock acquisition which causes a bad performance. In fact, Go scheduler instead of put it into the global run queue, it will try to find an idle thread to take over the &ldquo;P&rdquo; and its LRQ. After the OS Thread is released, Go scheduler will try to see there is any &ldquo;P&rdquo; with LRQ is looking for the idle thread. If it can&rsquo;t find it, It will put the &ldquo;G&rdquo; to the global run queue then go to sleep.</p>
 <figure>
     <img src="../../images/featured-post/goroutine_block.png" height="300px"/> 
 </figure>
@@ -201,12 +201,12 @@ There are 3 main components in Go scheduler.</p>
 <h4 id="spinning-thread">Spinning Thread</h4>
 <p>You may feel weird why is there any idle thread. Isn&rsquo;t Go scheduler suppose to prevent threads from being idle? Before we answer the question, we must know an <strong>OS Thread is much more heavier than a goroutine</strong>. To frequently create or destroy a OS Thread might hurt the performance. In the case of thread block (the P and LRQ is missing the &ldquo;M&rdquo;(Thread)), We can either wait until the block is released or find a new thread to take over the P and LRQ. Instead of creating the thread at the moment, Go introduces <code>spinning thread</code> to have thread standby to serve. It may hurt extra CPU power, but it will minimize the cost if a preemption or a block occur. A thread is spinning if:</p>
 <ol>
-<li>An <strong>M</strong> with a <strong>P</strong> assignment is looking for a runnable goroutine.</li>
-<li>An <strong>M</strong> without a <strong>P</strong> assignment is looking for available <strong>P</strong>s.</li>
-<li>Scheduler also unparks an additional thread and spins it when it is readying a goroutine if there is an idle <strong>P</strong> and there are no other spinning threads.
-There are at most GOMAXPROCS spinning <strong>M</strong>s at any time. When a spinning thread finds work, it takes itself out of spinning state.</li>
+<li>An &ldquo;M&rdquo; with a &ldquo;P&rdquo; assignment is looking for a runnable goroutine.</li>
+<li>An &ldquo;M&rdquo; without a &ldquo;P&rdquo; assignment is looking for available &ldquo;Ps&rdquo;.</li>
+<li>Scheduler also unparks an additional thread and spins it when it is readying a goroutine if there is an idle &ldquo;P&rdquo; and there are no other spinning threads.
+There are at most GOMAXPROCS spinning &ldquo;Ms&rdquo; at any time. When a spinning thread finds work, it takes itself out of spinning state.</li>
 </ol>
-<p>Idle threads with a <strong>P</strong> assignment don’t block if there are idle Ms without a <strong>P</strong> assignment. When new goroutines are created or an <strong>M</strong> is being blocked, scheduler ensures that there is at least one spinning <strong>M</strong>. This ensures that there are no runnable goroutines that can be otherwise running; and avoids excessive M blocking/unblocking.</p>
+<p>Idle threads with a &ldquo;P&rdquo; assignment don’t block if there are idle Ms without a &ldquo;P&rdquo; assignment. When new goroutines are created or an &ldquo;M&rdquo; is being blocked, scheduler ensures that there is at least one spinning &ldquo;M&rdquo;. This ensures that there are no runnable goroutines that can be otherwise running; and avoids excessive M blocking/unblocking.</p>
 
         </div>
 

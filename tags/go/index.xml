@@ -21,21 +21,30 @@
     </item>
     
     <item>
+      <title>Garbage Collection in Go</title>
+      <link>https://tsungjenh.github.io/blog/gc_go/</link>
+      <pubDate>Sun, 23 Aug 2020 10:07:47 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/gc_go/</guid>
+      <description>Introduction A Garbage collector is a design of automatic heap memory management, it attempts to free up the allocations that are no long needed while keeping the allocations that are still in use.</description>
+    </item>
+    
+    <item>
       <title>Understanding Go Scheduler</title>
       <link>https://tsungjenh.github.io/blog/go_scheduler/</link>
       <pubDate>Wed, 15 Jul 2020 02:12:05 +0600</pubDate>
       
       <guid>https://tsungjenh.github.io/blog/go_scheduler/</guid>
-      <description>Intro One of the biggest feature for Go is the scheduler.</description>
+      <description>Intro One of the biggest feature for Go is the Go Scheduler.</description>
     </item>
     
     <item>
-      <title>Garbage Collection in Go</title>
-      <link>https://tsungjenh.github.io/blog/gc_go/</link>
-      <pubDate>Mon, 29 Jun 2020 10:07:47 +0600</pubDate>
+      <title>Go Map Source Code Review</title>
+      <link>https://tsungjenh.github.io/blog/go_map/</link>
+      <pubDate>Mon, 29 Jun 2020 22:44:32 +0800</pubDate>
       
-      <guid>https://tsungjenh.github.io/blog/gc_go/</guid>
-      <description>Introduction A Garbage collector is a design of automatic heap memory management, it attempts to free up the allocations that are no long needed while keeping the allocations that are still in use.</description>
+      <guid>https://tsungjenh.github.io/blog/go_map/</guid>
+      <description>1. Intro Map is an important data structure in Go.</description>
     </item>
     
     <item>
