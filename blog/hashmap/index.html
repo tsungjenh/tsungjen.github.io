@@ -121,7 +121,8 @@
          </div>
          
         <div class="content mb-5">
-          <h4 id="1-definition">1. Definition:</h4>
+          <p> </p>
+<h4 id="1-definition">1. Definition:</h4>
 <p>A hash table is a data structure that provides a mapping from keys to a values using techique called &ldquo;hash&rdquo;.</p>
 <h4 id="2-hash-function">2. Hash Function:</h4>
 <p>A Hash function H(x) is a function that maps a key &ldquo;x&rdquo; to a hash table index in a fixed range.</p>
@@ -136,29 +137,29 @@
 <blockquote>
 <p>In Python, mutable type such as &ldquo;list&rdquo;, &ldquo;set&rdquo;, &ldquo;dict&rdquo; etc.. are not hashable.</p>
 </blockquote>
-<h2 id="5-how-a-hash-table-work">5. How a Hash Table Work?</h2>
+<h4 id="5-how-a-hash-table-work">5. How a Hash Table Work?</h4>
 <p>Ideally we would like to have a very fast insertion, lookup and removal time for the data. we are placing in our hash table. Remarkably, we can achieve all this in O(1) time using a hash function as a way to index into hash tables.</p>
 <blockquote>
 <p>The constant time behavior attributed to hash tables is only true if you have a good uniform hash function</p>
 </blockquote>
-<h2 id="6-what-is-collision-and-how-to-handle">6. What is Collision and How to Handle?</h2>
+<h4 id="6-what-is-collision-and-how-to-handle">6. What is Collision and How to Handle?</h4>
 <p>A hash collision is when two key x, y hash to the same value which is H(x) = H(y)
 There are 2 primary ways to handle this situation:<br>
 <strong>1. Separate chaining:</strong><br>
 This approach deals with hash collisions by maintaining a data structure (usaually a linked list) to hold all the different values which hashed to a particular value.<br>
 <strong>2. Open Addressing:</strong><br>
 This approach deals with hash collisions by finding another place within the hash table for the k-v to go by offsetting(by probing function P(x)) it from the position to which it hashed to.</p>
-<h2 id="7-chaos-with-cycles">7. Chaos with cycles</h2>
+<h4 id="7-chaos-with-cycles">7. Chaos with cycles</h4>
 <p>If we implement hash table with open addressing and collision occurs, we have to use the probing function to get the next position to store the value. There might be a issue of causing cycle. (there are still available position in hash table, but probing can&rsquo;t reach due to the cycle).<br>
 To solve this problem we can do it by properly set the size and probing factor in different kind of probing strategies. <!-- raw HTML omitted -->
 Rules:<br>
 <strong>1. linear</strong> - ax + b &ndash;&gt; let a = 1 or gcd(a, size) = 1<br>
 <strong>2. quadratic</strong> - ax^2 + bx + c &ndash;&gt; choose (x^2 + x) / 2 and size is a power of 2<br>
 <strong>double hashing</strong> - p(x, k) = x * h&rsquo;(x) &ndash;&gt; linear hashing &ndash;&gt; gcd(h&rsquo;(x), size) must be 1 &ndash;&gt; choose size to be prime.</p>
-<h2 id="8-max-load-factor">8. Max Load Factor</h2>
+<h4 id="8-max-load-factor">8. Max Load Factor</h4>
 <p>A hash table has to adjust the size as the data stored increases. A max load factor is a flag to indicated whether the table size should increase. A proper used of max load factor can prevent the worst case complexity occurs.</p>
 <!-- raw HTML omitted -->
-<h2 id="9-complexity">9. Complexity</h2>
+<h4 id="9-complexity">9. Complexity</h4>
 <table>
 <thead>
 <tr>
@@ -188,7 +189,7 @@ Rules:<br>
 <blockquote>
 <p>In the worst case which every key is hashed to the same hash idx, hash table depreciates to a linear structure such as array or linked list.</p>
 </blockquote>
-<h2 id="10-implementation">10. Implementation</h2>
+<h4 id="10-implementation">10. Implementation</h4>
 <ol>
 <li>Separate Chaining Hash Table:</li>
 </ol>
