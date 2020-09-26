@@ -65,5 +65,14 @@
       <description>0. Intro With its concurrency properties, Go becomes one of the most popular languages in recent years.</description>
     </item>
     
+    <item>
+      <title>Implementation of Hash Map in Python</title>
+      <link>https://tsungjenh.github.io/blog/hashmap/</link>
+      <pubDate>Wed, 11 Mar 2020 22:12:37 +0600</pubDate>
+      
+      <guid>https://tsungjenh.github.io/blog/hashmap/</guid>
+      <description>1. Definition: A hash table is a data structure that provides a mapping from keys to a values using techique called &amp;ldquo;hash&amp;rdquo;.</description>
+    </item>
+    
   </channel>
 </rss>

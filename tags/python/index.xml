@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Python on TsungJen.io</title>
+    <title>python on TsungJen.io</title>
     <link>https://tsungjenh.github.io/tags/python/</link>
-    <description>Recent content in Python on TsungJen.io</description>
+    <description>Recent content in python on TsungJen.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Tue, 29 Oct 2019 10:07:47 +0600</lastBuildDate>
+    <lastBuildDate>Wed, 11 Mar 2020 22:12:37 +0600</lastBuildDate>
     
 	<atom:link href="https://tsungjenh.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>How To Use Checklists To Improve Your UX</title>
-      <link>https://tsungjenh.github.io/blog/post-2/</link>
-      <pubDate>Tue, 29 Oct 2019 10:07:47 +0600</pubDate>
+      <title>Implementation of Hash Map in Python</title>
+      <link>https://tsungjenh.github.io/blog/hashmap/</link>
+      <pubDate>Wed, 11 Mar 2020 22:12:37 +0600</pubDate>
       
-      <guid>https://tsungjenh.github.io/blog/post-2/</guid>
-      <description>Heading 1 Heading 2 Heading 3 Heading 4 Heading 5 Heading 6 Emphasis Emphasis, aka italics, with asterisks or underscores.</description>
+      <guid>https://tsungjenh.github.io/blog/hashmap/</guid>
+      <description>1. Definition: A hash table is a data structure that provides a mapping from keys to a values using techique called &amp;ldquo;hash&amp;rdquo;.</description>
     </item>
     
   </channel>
