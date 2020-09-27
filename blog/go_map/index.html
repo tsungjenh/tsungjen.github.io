@@ -129,7 +129,7 @@
 </blockquote>
 <hr>
 <h4 id="2-data-structure">2. Data Structure</h4>
-<p>First let take look at the data structure.</p>
+<p>First, take look at the data structure.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// A header for a Go map.
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">hmap</span> <span style="color:#66d9ef">struct</span> {
 	<span style="color:#75715e">// Note: the format of the hmap is also encoded in cmd/compile/internal/gc/reflect.go.
@@ -203,7 +203,7 @@
 </span><span style="color:#75715e"></span>	<span style="color:#75715e">// us to eliminate padding which would be needed for, e.g., map[int64]int8.
 </span><span style="color:#75715e"></span>	<span style="color:#75715e">// Followed by an overflow pointer.
 </span><span style="color:#75715e"></span>}
-</code></pre></div><p><code>bmap</code> is the bucket for Go map, it can store 8 pairs of k-v by default. It store the actual key/value data in map.</p>
+</code></pre></div><p><code>bmap</code> is the bucket for Go map, it can store 8 pairs of k-v by default. It stores the actual key/value data in map.</p>
 <blockquote>
 <p>The actual <strong>key/value</strong> and <strong>overflow</strong> is added in the compile time.</p>
 </blockquote>
@@ -214,7 +214,7 @@
 
 <hr>
 <h4 id="3-operations">3. Operations</h4>
-<p>Map in Go is implementation of a <strong>hashmap</strong>. There are 5 main operations, including <strong>creation</strong>, <strong>get</strong>, <strong>assign</strong>, <strong>deletion</strong> and <strong>growth</strong>. Let&rsquo;s go through the implementation and detail one by one</p>
+<p>Map in Go is a implementation of a <strong>hashmap</strong>. There are 5 main operations, including <strong>creation</strong>, <strong>get</strong>, <strong>assign</strong>, <strong>deletion</strong> and <strong>growth</strong>. Let&rsquo;s go through the implementation and detail one by one</p>
 <h5 id="creation">Creation</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">makemap</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">maptype</span>, <span style="color:#a6e22e">hint</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">hmap</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">hmap</span> {
 	<span style="color:#a6e22e">mem</span>, <span style="color:#a6e22e">overflow</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MulUintptr</span>(uintptr(<span style="color:#a6e22e">hint</span>), <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">bucket</span>.<span style="color:#a6e22e">size</span>)
